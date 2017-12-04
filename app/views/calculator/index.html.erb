@@ -1,0 +1,17 @@
+<h1>Calculator</h1>
+<%= form_tag(controller: "calculator", action:"calculate", method: "post") do %>
+    <%= label_tag(:x, "X:") %>
+    <%= text_field_tag(:x) %>
+    <%= label_tag(:y, "Y:") %>
+    <%= text_field_tag(:y) %>
+    <%= label_tag(:operation, "Operation:") %>
+    <%= select_tag(:operation, options_for_select([['Add', 'add'],['Subtract', 'subtract'],['Multiply', 'multiply'],['Divide', 'divide']])) %>
+    <%= submit_tag("Calculate") %>
+<% end %>
+
+<% if @result %>
+
+Operation: <%= @x %> <%= @operation %> <%= @y %><br/>
+Result: <span id="calculator-result"><%= @result %></span>
+
+<% end %>

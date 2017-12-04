@@ -1,0 +1,2 @@
+module EtusivuHelper
+end
