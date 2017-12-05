@@ -1,17 +1,24 @@
 <h1>Calculator</h1>
 <%= form_tag(controller: "calculator", action:"calculate", method: "post") do %>
-    <%= label_tag(:x, "X:") %>
-    <%= text_field_tag(:x) %>
-    <%= label_tag(:y, "Y:") %>
-    <%= text_field_tag(:y) %>
-    <%= label_tag(:operation, "Operation:") %>
-    <%= select_tag(:operation, options_for_select([['Add', 'add'],['Subtract', 'subtract'],['Multiply', 'multiply'],['Divide', 'divide']])) %>
+    <%= label_tag(:conc_exc_class, "Toteutusluokka:") %>
+    <%= select_tag(:conc_exc_class, options_for_select([['1', '1'],['2', '2'],['3', '3']])) %>
+    <%= label_tag(:conc_tol_class, "Toleranssiluokka:") %>
+    <%= select_tag(:conc_tol_class, options_for_select([['1', '1'],['2', '2']])) %>
+    <%= label_tag(:c_class, "Lujuusluokka:") %>
+    <%= select_tag(:c_class, options_for_select([['C16/20', 16.0],['C20/25', 20],['C25/30', 25],['C30/37', 30]])) %>
     <%= submit_tag("Calculate") %>
 <% end %>
 
 <% if @result %>
+    
+Toteutusluokka =  <%= @conc_exc_class%> <br/>
+Toleranssiluokka =  <%= @conc_tol_class%> <br/>
+fck =  <%= @c_class%> N/mm2 <br/>
 
-Operation: <%= @x %> <%= @operation %> <%= @y %><br/>
+
+Operation: <%= @conc_exc_class %> <%= @c_class%> <%= @conc_tol_class %><br/>
 Result: <span id="calculator-result"><%= @result %></span>
 
 <% end %>
+
+   
