@@ -5,18 +5,19 @@
     <%= label_tag(:conc_tol_class, "Toleranssiluokka:") %>
     <%= select_tag(:conc_tol_class, options_for_select([['1', '1'],['2', '2']])) %>
     <%= label_tag(:c_class, "Lujuusluokka:") %>
-    <%= select_tag(:c_class, options_for_select([['C16/20', 16.0],['C20/25', 20],['C25/30', 25],['C30/37', 30]])) %>
+    <%= select_tag(:c_class, options_for_select([['C16/20'],['C20/25'],['C25/30'],['C30/37']])) %>
     <%= submit_tag("Calculate") %>
 <% end %>
+
 
 <% if @result %>
     
 Toteutusluokka =  <%= @conc_exc_class%> <br/>
 Toleranssiluokka =  <%= @conc_tol_class%> <br/>
-fck =  <%= @c_class%> N/mm2 <br/>
+fck =  <%= @c_fck%> N/mm2 <br/>
 
 
-Operation: <%= @conc_exc_class %> <%= @c_class%> <%= @conc_tol_class %><br/>
+Operation: <%= @conc_exc_class %> <%= @c_fck%> <%= @conc_tol_class %><br/>
 Result: <span id="calculator-result"><%= @result %></span>
 
 <% end %>
