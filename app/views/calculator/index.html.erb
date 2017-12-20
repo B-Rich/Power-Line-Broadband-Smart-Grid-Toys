@@ -1,25 +1,45 @@
-<h1>Calculator</h1>
+<h1>Palkin mitoitus</h1>
 <%= form_tag(controller: "calculator", action:"calculate", method: "post") do %>
     <%= label_tag(:conc_exc_class, "Toteutusluokka:") %>
     <%= select_tag(:conc_exc_class, options_for_select([['1', '1'],['2', '2'],['3', '3']])) %>
     <%= label_tag(:conc_tol_class, "Toleranssiluokka:") %>
     <%= select_tag(:conc_tol_class, options_for_select([['1', '1'],['2', '2']])) %>
     <%= label_tag(:c_class, "Lujuusluokka:") %>
-    <%= select_tag(:c_class, options_for_select([['C16/20'],['C20/25'],['C25/30'],['C30/37']])) %>
-    <%= submit_tag("Calculate") %>
+    <%= select_tag(:c_class, options_for_select([['C16/20'],['C20/25'],['C25/30'],['C30/37'],['C35/45'],['C40/50'],['C45/55'],['C50/60'],['C55/67'],['C60/70'],['C70/85']])) %>
+    
+    <%= label_tag(:b_length, "Pituus[m]:") %>
+    <%= text_field_tag(:b_length) %>
+    
+    <%= label_tag(:b_load_pd, "Tasainen mitoituskuorma[kN/m]:") %>
+    <%= text_field_tag(:b_load_pd) %>
+    
+    <%= label_tag(:b_x_dist, "Momentti mitoitus kohdassa [m]:") %>
+    <%= text_field_tag(:b_x_dist) %>
+    
+    <%= submit_tag("Laske") %>
 <% end %>
 
 
 <% if @result %>
     
+Materiaalitiedot <br/>
+<br/>    
 Toteutusluokka =  <%= @conc_exc_class%> <br/>
 Toleranssiluokka =  <%= @conc_tol_class%> <br/>
 fck =  <%= @c_fck%> N/mm2 <br/>
-
-
-Operation: <%= @conc_exc_class %> <%= @c_fck%> <%= @conc_tol_class %><br/>
+fcm = <%= @c_fcm%> N/mm2 <br/>
+fctm = <%=@c_fctm.round(2)%> N/mm2<br/>
+&#947 c = <%=@c_gamma_c %><br/>
+fcd = <%=@c_fcd.round(2) %> N/mm2<br/>
+fctd = <%=@c_fctd.round(2)%> N/mm2<br/>
+<br/> 
+Geometria <br/>
+Palkin pituus =  <%= @b_length%> m <br/>
+<br/> 
+Kuormitukset <br/>
+Mitoituskuorma =  <%= @b_load_pd%> kN/m <br/>
+Momentti kohdassa <%= @b_x_dist%> m = <%= @moment_b1_const_load %> kNm <br/>
+<br/> 
 Result: <span id="calculator-result"><%= @result %></span>
 
 <% end %>
-
-   
