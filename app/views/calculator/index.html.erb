@@ -1,45 +1,136 @@
-<h1>Palkin mitoitus</h1>
-<%= form_tag(controller: "calculator", action:"calculate", method: "post") do %>
-    <%= label_tag(:conc_exc_class, "Toteutusluokka:") %>
-    <%= select_tag(:conc_exc_class, options_for_select([['1', '1'],['2', '2'],['3', '3']])) %>
-    <%= label_tag(:conc_tol_class, "Toleranssiluokka:") %>
-    <%= select_tag(:conc_tol_class, options_for_select([['1', '1'],['2', '2']])) %>
-    <%= label_tag(:c_class, "Lujuusluokka:") %>
-    <%= select_tag(:c_class, options_for_select([['C16/20'],['C20/25'],['C25/30'],['C30/37'],['C35/45'],['C40/50'],['C45/55'],['C50/60'],['C55/67'],['C60/70'],['C70/85']])) %>
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Palkin mitoitus</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  </head>
+  
+  <body>
+    <header>
+     <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Always expand</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExample02">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-md-0">
+            <input class="form-control" type="text" placeholder="Search">
+          </form>
+        </div>
+      </nav>
+   </header>
     
-    <%= label_tag(:b_length, "Pituus[m]:") %>
-    <%= text_field_tag(:b_length) %>
+    <div class="container-fluid">
+      <div class="row">
     
-    <%= label_tag(:b_load_pd, "Tasainen mitoituskuorma[kN/m]:") %>
-    <%= text_field_tag(:b_load_pd) %>
+        <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Overview <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Reports</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Analytics</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Export</a>
+            </li>
+          </ul>
+
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Nav item</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Nav item again</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">One more nav</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Another nav item</a>
+            </li>
+          </ul>
+         </nav>    
+
+        <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+          <h1>Palkin mitoitus</h1>
+
+          <section class="row text-left placeholders">
+            <%= form_tag(controller: "calculator", action:"calculate", method: "post") do %>
+            <%= label_tag(:conc_exc_class, "Toteutusluokka:") %>
+            <%= select_tag(:conc_exc_class, options_for_select([['1', '1'],['2', '2'],['3', '3']])) %>
+            <%= label_tag(:conc_tol_class, "Toleranssiluokka:") %>
+            <%= select_tag(:conc_tol_class, options_for_select([['1', '1'],['2', '2']])) %>
+            <%= label_tag(:c_class, "Lujuusluokka:") %>
+            <%= select_tag(:c_class, options_for_select([['C16/20'],['C20/25'],['C25/30'],['C30/37'],['C35/45'],['C40/50'],['C45/55'],['C50/60'],['C55/67'],['C60/70'],['C70/85']])) %>
+      
+            <%= label_tag(:b_length, "Pituus[m]:") %>
+            <%= text_field_tag(:b_length) %>
     
-    <%= label_tag(:b_x_dist, "Momentti mitoitus kohdassa [m]:") %>
-    <%= text_field_tag(:b_x_dist) %>
+            <%= label_tag(:b_load_pd, "Tasainen mitoituskuorma[kN/m]:") %>
+            <%= text_field_tag(:b_load_pd) %>
     
-    <%= submit_tag("Laske") %>
-<% end %>
+            <%= label_tag(:b_x_dist, "Momentti mitoitus kohdassa [m]:") %>
+            <%= text_field_tag(:b_x_dist) %>
+    
+            <%= submit_tag("Laske") %>
+            <% end %>
 
 
-<% if @result %>
+            <% if @result %>
     
-Materiaalitiedot <br/>
-<br/>    
-Toteutusluokka =  <%= @conc_exc_class%> <br/>
-Toleranssiluokka =  <%= @conc_tol_class%> <br/>
-fck =  <%= @c_fck%> N/mm2 <br/>
-fcm = <%= @c_fcm%> N/mm2 <br/>
-fctm = <%=@c_fctm.round(2)%> N/mm2<br/>
-&#947 c = <%=@c_gamma_c %><br/>
-fcd = <%=@c_fcd.round(2) %> N/mm2<br/>
-fctd = <%=@c_fctd.round(2)%> N/mm2<br/>
-<br/> 
-Geometria <br/>
-Palkin pituus =  <%= @b_length%> m <br/>
-<br/> 
-Kuormitukset <br/>
-Mitoituskuorma =  <%= @b_load_pd%> kN/m <br/>
-Momentti kohdassa <%= @b_x_dist%> m = <%= @moment_b1_const_load %> kNm <br/>
-<br/> 
-Result: <span id="calculator-result"><%= @result %></span>
+    Materiaalitiedot <br/>
+    <br/>    
+    Toteutusluokka =  <%= @conc_exc_class%> <br/>
+    Toleranssiluokka =  <%= @conc_tol_class%> <br/>
+    fck =  <%= @c_fck%> N/mm2 <br/>
+    fcm = <%= @c_fcm%> N/mm2 <br/>
+    fctm = <%=@c_fctm.round(2)%> N/mm2<br/>
+    &#947 c = <%=@c_gamma_c %><br/>
+    fcd = <%=@c_fcd.round(2) %> N/mm2<br/>
+    fctd = <%=@c_fctd.round(2)%> N/mm2<br/>
+    <br/> 
+    Geometria <br/>
+    Palkin pituus =  <%= @b_length%> m <br/>
+    <br/> 
+    Kuormitukset <br/>
+    Mitoituskuorma =  <%= @b_load_pd%> kN/m <br/>
+    Momentti kohdassa <%= @b_x_dist%> m = <%= @moment_b1_const_load %> kNm <br/>
+    <br/> 
 
-<% end %>
+    <% end %>
+          </section>
+
+        </main> 
+    
+
+   
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+
+
